@@ -20,17 +20,14 @@ document.addEventListener("DOMContentLoaded", () => {
       imagen.src = url.value;
       imagen.classList.add("imagen");
       imagen.addEventListener("click", function () {
-        const urlImagen = imagen.src;
-        imagenGrande.src = urlImagen;
+        imagenGrande.src = imagen.src;
         divGrande.classList.add("open");
         btnCerrar.addEventListener("click", cerrarImagen);
       });
 
       div.appendChild(imagen);
       div.appendChild(p);
-
       document.getElementById("container").appendChild(div);
-
       texto.value = "";
       url.value = "";
     }
