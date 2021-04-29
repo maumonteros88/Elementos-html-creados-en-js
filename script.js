@@ -1,12 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const boton = document.querySelector("#agregar");
+  const boton = document.getElementById("agregar");
+  const texto = document.getElementById("texto");
+  const url = document.getElementById("url");
+  const divGrande = document.getElementById("div-grande");
+  const imagenGrande = document.getElementById("imagenGrande");
+  const btnCerrar = document.getElementById("btn-cerrar");
 
   boton.addEventListener("click", () => {
-    const texto = document.querySelector("#texto");
-    const url = document.querySelector("#url");
-
     if (texto.value === "" || url.value === "") {
-      alert("Ambos campos deben ser llenados");
+      alert("Debe ingresar ambos campos");
     } else {
       const div = document.createElement("div");
       div.classList.add("caja");
@@ -17,36 +19,26 @@ document.addEventListener("DOMContentLoaded", () => {
       const imagen = document.createElement("img");
       imagen.src = url.value;
       imagen.classList.add("imagen");
+      imagen.addEventListener("click", function () {
+        const urlImagen = imagen.src;
+        imagenGrande.src = urlImagen;
+        divGrande.classList.add("open");
+        btnCerrar.addEventListener("click", cerrarImagen);
+      });
 
       div.appendChild(imagen);
       div.appendChild(p);
 
-      document.querySelector(".container").appendChild(div);
+      document.getElementById("container").appendChild(div);
 
       texto.value = "";
       url.value = "";
-
-      const imagenes = document.querySelectorAll(".imagen");
-      for (let i = 0; i < imagenes.length; i++) {
-        imagenes[i].addEventListener("click", abrirImagen);
-      }
     }
   });
 
-  const divGrande = document.getElementById("div-grande");
-  const imagenGrande = document.getElementById("imagenGrande");
-  const btnCerrar = document.getElementById("btn-cerrar");
-
-  function abrirImagen(e) {
-    const urlImagen = e.target.src;
-    imagenGrande.src = urlImagen;
-
-    divGrande.classList.add("open");
-    divGrande.addEventListener("click", cerrarImagen);
-  }
-
-  function cerrarImagen(e) {
-    if (e.target === btnCerrar) {
+  function cerrarImagen() {
+    if (btnCerrar) {
+      imagenGrande.src = "";
       divGrande.classList.remove("open");
     }
   }
